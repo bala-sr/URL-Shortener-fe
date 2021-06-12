@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="signup.css">
+    <title>Signup</title>
+</head>
+<body>
+    <div class="signup-container">
+        <form method="POST" action="javascript:void(0);" onsubmit="signup()" >
+            <h2>Signup</h2>
+            <section id ="error" hidden></section>
+            <label for="email">Email</label><br>
+            <input id="email" type="email" placeholder="Email" required><br>
+            <label for="email">Password</label><br>
+            <input id="password" type="password" placeholder="Password" required><br>
+            <h5 id="error" hidden>Error Section</h5>
+            <button class="btn-signup">Submit</button>
+        </form>
+        <h5>or</h5>
+        <button><a class="btn-login" href="index.html">Login</a></button>
+    </div>
+
+    <script type="text/javascript">
+        let signup = async () => {
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            console.log(email);
+            console.log(password);
+
+            let result = await fetch("https://url-shortener01.herokuapp.com/signup", {
+                method: "POST",
+                mode: "cors",
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify({
+                    "email": email,
+                    "password": password
+                })
+            })
+            console.log(result);
+            if(result.status === 200) {
+                console.log("Success");
+                //alert("Sign up successful");
+                    setTimeout(() => {
+                        window.location.href = "./index.html";
+                    }, 500);
+            }
+            else {
+                let errorSection = document.getElementById("error");
+                errorSection.hidden = false;
+                console.log(result.status);
+                if(result.status == 201) {
+                    errorSection.innerHTML = "Email already exist";
+                }
+                else if(result.status == 202) {
+                    errorSection.innerHTML = "Unable to sign up. Please try again";
+                }
+            }
+            // .then((res) => res.json())
+            // .then(res => console.log(res))
+            // // .then((res) => {
+            // //     console.log(res)
+            // //     // if(res.status == 200) {
+            // //     //     console.log("Success");
+            // //     //     setTimeout(() => {
+            // //     //         window.location.href = "./index.html";
+            // //     //     }, 500);
+            // //     // }
+            // //     // else {
+            // //     //     console.log("Failed to signup");
+            // //     // }
+            // // })
+            // .catch((err) => {
+            //     console.log(err);
+            // })
+        }
+    </script>
+</body>
+</html>

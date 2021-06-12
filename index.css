@@ -1,0 +1,70 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: rgb(35, 35, 35);
+    color: whitesmoke;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: rgb(28, 28, 28);
+    padding: 40px;
+    border-radius: 5px;
+    width: 20%;
+}
+
+#error-msg {
+    color: rgb(250, 50, 50);
+}
+
+label {
+    font-size: 14px;
+    padding: 5px 0;
+}
+
+input {
+    background: rgb(28, 28, 28);
+    border: none;
+    border-bottom: 1px solid wheat;
+    outline: none;
+    color: white;
+    font-size: 16px;
+    padding: 1px;
+    margin: 12px 0;
+    width: 100%;
+}
+
+h2 {
+    text-align: center;
+}
+
+.btn-login {
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px 0;
+    border: none;
+    outline: none;
+    background: yellowgreen;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.fp, .signup {
+    font-size: 12px;
+    text-decoration: none;
+    color: rgb(187, 187, 187);
+}
+
+.fp {
+    float: right;
+    margin-top: 5px;
+}
+
+.fp:hover, .signup:hover {
+    color: white;
+    transition: 0.1s all ease-in;
+}

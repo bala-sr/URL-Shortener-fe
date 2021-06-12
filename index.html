@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Login Page</title>
+</head>
+<body>
+    <div class="login-container">
+        <form method="POST" action="javascript:void(0);" onsubmit="login()">
+            <h2>Login</h2>
+            <label for="email">Email</label><br>
+            <input id="email" type="email" placeholder="Email" required><br>
+            <label for="email">Password</label><br>
+            <input id="password" type="password" placeholder="Password" required><br>
+            <section id="error-msg" hidden></section>
+            <button class="btn-login">Submit</button>
+        </form>
+        <section>
+            <a class="signup" href="signup.html">Signup</a>
+            <a class="fp" href="forgotpassword.html">Reset Password?</a>
+        </section>
+    </div>
+
+    <script type="text/javascript">
+        let login = async () => {
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            let alert = document.getElementById("error-msg");
+
+            await fetch("https://url-shortener01.herokuapp.com/login", {
+                method: "POST",
+                mode: "cors",
+                headers: {
+                    "Authorization": localStorage.urlWebToken,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "email": email,
+                    "password": password
+                })
+            })  
+            .then((res) => res.json())
+            .then((res) => {
+                if(res.message == "User logged in successfully") {
+                    console.log(res);
+                    localStorage.setItem("urlWebToken", res.token);
+                    localStorage.setItem("email", res.UserEmail);
+                    // setTimeout(() => {
+                    // }, 500);
+                    window.location.href = "./homepage.html";
+                    console.log(urlWebToken);
+                    console.log(email);
+                }
+                else {
+                    alert.hidden = false;
+                    alert.innerHTML =  res.message;
+                    alert(res);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        }
+    </script>
+</body>
+</html>

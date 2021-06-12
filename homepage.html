@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="homepage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Headland+One&family=Oswald&display=swap" rel="stylesheet"> 
+    <title>Homepage</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li id="welcome"></li>
+            <li><a href="index.html" onclick="logout()">Logout</a></li>
+        </ul>
+    </nav>
+    <section class="url-container">
+        <h2>Enter URL to be shortened:</h2><br>
+        <form method="POST" action="javascript:void(0);" onSubmit="shorten()">
+            <section class="flex-display">
+                <input id="url" type="text" placeholder="For example: https://www.google.com/" required>
+                <button><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+            </section><br><br>
+        </form>
+        <div class="display">
+            <section id="short-url" hidden></section><a id="short-url-a" target="_blank"></a>
+        </div>
+        <section class="output">
+            <button class="btn-show" onclick="showUrls()">Show all URLs</button>
+        </section>
+        <div id="url-list" >
+            <h3>Archives</h3>
+            <table>
+                <tr>
+                    <th>Long Url</th>
+                    <th>Short Url</th>
+                </tr>
+                <tbody id="table-body">
+                    
+                </tbody>
+            </table>
+        </div>
+    </section>
+    
+    <script type="text/javascript">
+
+        let welcome = document.getElementById("welcome");        
+        let email = localStorage.email;
+        welcome.innerHTML = `<p style="color: white; display: inline">Welcome </p>` + email;
+
+        let shorten = async () => {
+            let url = document.getElementById("url").value;
+            let email = localStorage.email;
+            let result = await fetch("http://localhost:3000/shortenUrl", {
+                method: "POST",
+                headers: {
+                    "Authorization": localStorage.urlWebToken,
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    "email": email,
+                    "longUrl": url
+                })
+            }).then((res) => res.json())
+            .then((res) => {
+                console.log(res)
+                if(res.message == "Url inserted") {
+                    console.log("Success: ", res.shortUrl);
+                    let shortUrl = document.getElementById("short-url");
+                    let shortUrlAnchor = document.getElementById("short-url-a");
+                    shortUrl.hidden = false;
+                    shortUrl.innerHTML = "Short Url : ";
+                    shortUrlAnchor.innerText = " " + res.shortUrl;
+                    shortUrlAnchor.href = res.longUrl;
+                }
+                else {
+                    console.log("failure");
+                }
+            })
+            .catch((err) => {
+                alert(err);
+            })
+        }
+        
+        let showUrls = async () => {
+            let urlTable = document.getElementById("table-body");
+            urlTable.hidden = false;
+            let email = localStorage.email;
+
+            await fetch("https://url-shortener01.herokuapp.com/getUrl/" + email)
+            .then((res) => res.json())
+            .then((res) => {
+                // res.forEach((url) => {
+                //     console.log(url);
+                // })
+                res.forEach((url) => {
+                    let tr = document.createElement("tr");
+                    let c1 = document.createElement("td");
+                    c1.setAttribute("id", "longUrl");
+                    c1.innerHTML = "<a class='longUrl' href=" + url.fullUrl + " target='_blank' >" + url.fullUrl + "</a>";
+                    let c2 = document.createElement("td");
+                    c2.innerHTML = "<a class='shortUrl' href=" + url.fullUrl + " target='_blank' >" + url.shortUrl + "</a>";
+                    c2.setAttribute("id", "shortUrl");
+
+                    tr.appendChild(c1);
+                    tr.appendChild(c2);
+                    urlTable.appendChild(tr);
+                })
+                
+            })
+        }
+
+        //Logout fn
+        const logout = () => {
+            window.localStorage.removeItem("urlWebToken");
+            window.localStorage.removeItem("email");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: rgb(35, 35, 35);
+    font-family: 'Headland One', serif !important;
+    height: auto;
+}
+
+ul {
+    display:flex;
+    flex-direction: row;
+    float: right;
+    list-style-type: none;
+}
+
+#welcome {
+    color: aqua;
+    padding: 25px 0;
+    font-size: 16px;
+}
+
+ul li a {
+    text-decoration: none;
+    color: whitesmoke;
+    float: right;
+    margin: 15px 30px;
+    border: 2px solid aqua;
+    background: rgb(35, 35, 35);
+    color: aqua;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 15px;
+    font-family: sans-serif
+}
+
+ul li a:hover {
+    background: aqua;
+    border: 2px solid aqua;
+    color: rgb(35, 35, 35);
+    transition: 0.1s all ease-in;
+}
+
+.url-container {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+form {
+    width: 100%;
+}
+
+h2 {
+    font-size: 30px;
+    color: whitesmoke;
+    margin: 10px 0;
+}
+
+input {
+    width: 100%;
+    height: 40px;
+    outline: none;
+    font-size: 20px;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    background: whitesmoke;
+    padding-left: 8px;
+}
+
+.display {
+    display: flex;
+    flex-direction: row;
+}
+
+#short-url {
+    color: whitesmoke;
+    font-size: 25px;
+}
+
+#short-url-a {
+    text-decoration: none;
+    color: rgb(76, 44, 255);
+    font-size: 25px;
+}
+
+.flex-display {
+    display: flex;
+    flex-direction: row;
+}
+
+button {
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    border: 2px solid aqua;
+    background: rgb(35, 35, 35);
+    color: aqua;
+    padding: 0 15px;
+    margin: 0 2px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: aqua;
+    border: 2px solid aqua;
+    color: rgb(35, 35, 35);
+    transition: 0.1s all ease-in;
+}
+
+#result {
+    color: rgb(253, 24, 24);
+}
+
+.btn-show {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    margin: 15px 0;
+    padding: 10px 8px;
+    border: 2px solid aqua;
+    background: rgb(35, 35, 35);
+    color: aqua;
+}
+
+.btn-show:hover {
+    background: aqua;
+    border: 2px solid aqua;
+    color: rgb(35, 35, 35);
+    transition: 0.1s all ease-in;
+}
+
+h3 {
+    text-align: center;
+    color: aqua;
+    font-size: 20px;
+}
+
+.url-list {
+    height: auto;
+}
+
+table {
+    width: 95%;
+    table-layout: fixed;
+    color: whitesmoke;
+    position: absolute;
+    top: 110%;
+    margin-bottom: 25px;
+}
+
+table, th, td {
+    border: 1px solid whitesmoke;
+    border-collapse: collapse;
+    font-size: 15px;
+}
+
+th {
+    padding: 10px 0;
+    color: aqua;
+}
+
+td {
+    word-wrap: break-word;
+    padding: 5px;
+}
+
+.longUrl, .shortUrl {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.longUrl:hover, .shortUrl:hover {
+    color: rgb(187, 240, 44)
+}
